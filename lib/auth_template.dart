@@ -1,9 +1,5 @@
 library auth_template;
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'helper.dart';
-import 'helper.dart';
+import 'package:auth_template/pack/main_exporter.dart';
 
 class AuthTemplate extends StatefulWidget {
   final AuthSettings authSettings;
