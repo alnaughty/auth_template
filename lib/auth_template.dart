@@ -1,11 +1,14 @@
 library auth_template;
+
 import 'package:auth_template/pack/main_exporter.dart';
+export 'package:auth_template/pack/main_exporter.dart';
 
 class AuthTemplate extends StatefulWidget {
   final AuthSettings authSettings;
   final Color? buttonColor;
   final Widget buttonChild;
   AuthTemplate({required this.authSettings, this.buttonColor= Colors.red, required this.buttonChild});
+
   @override
   _AuthTemplateState createState() => _AuthTemplateState();
 }
@@ -51,11 +54,21 @@ class _AuthTemplateState extends State<AuthTemplate> {
                     width: double.infinity,
                     alignment: AlignmentDirectional.centerEnd,
                     child: TextButton(
-                      onPressed: (){},
+                      style: TextButton.styleFrom(primary: widget.buttonColor),
+                      onPressed: (){
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (_) => ForgotPasswordPage(
+                                  settings: authSettings,
+                                  buttonColor: widget.buttonColor,
+                                )
+                            )
+                        );
+                      },
                       child: Text("Forgot password ?",style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontStyle: FontStyle.italic,
-                        color: Colors.blue
                       ),),
                     ),
                   )

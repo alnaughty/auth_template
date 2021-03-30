@@ -79,5 +79,32 @@ class AuthSettings{
       this.apiCallback!(e);
     }
   }
-
+  Widget textField({
+    required TextEditingController controller,
+    TextInputType type = TextInputType.text,
+    int maxLine = 1,
+    required String label
+  }) => Theme(
+    data: ThemeData(
+      primaryColor: this.fieldColor,
+    ),
+    child: TextField(
+      controller: controller,
+      cursorColor: this.fieldColor,
+      keyboardType: type,
+      maxLines: maxLine,
+      decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.cancel),
+            onPressed: (){
+              controller.clear();
+            },
+          )
+      ),
+    ),
+  );
 }
