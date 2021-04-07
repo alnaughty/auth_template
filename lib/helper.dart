@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:auth_template/forgot_password_helper.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:http/io_client.dart';
+
 class AuthSettings{
   final String endpoint;
   final TextEditingController email = new TextEditingController();
@@ -69,11 +67,6 @@ class AuthSettings{
 
   Future<void> requestFromEndpoint() async {
     try{
-      HttpClient httpClient = new HttpClient()
-        ..badCertificateCallback =
-        ((X509Certificate cert, String host, int port) => true);
-      IOClient ioClient = new IOClient(httpClient);
-
       var url = Uri.parse(this.endpoint);
       Map body = {
         "${this.emailApiKey}" : email.text.toString(),
@@ -82,7 +75,7 @@ class AuthSettings{
       if(this.fcm_token != null) {
         body.addAll({"fcm_token" : this.fcm_token});
       }
-      await ioClient.post(url, body: body).then((response) {
+      await http.post(url, body: body).then((response) {
         var data = json.decode(response.body);
         this.apiCallback!(data);
       });
