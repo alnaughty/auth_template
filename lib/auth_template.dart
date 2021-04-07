@@ -7,7 +7,8 @@ class AuthTemplate extends StatefulWidget {
   final AuthSettings authSettings;
   final Color? buttonColor, backgroundColor;
   final Widget buttonChild;
-  AuthTemplate({required this.authSettings, this.buttonColor= Colors.red, required this.buttonChild, this.backgroundColor = Colors.transparent});
+  final String? fcm_token;
+  AuthTemplate({required this.authSettings, this.buttonColor= Colors.red, required this.buttonChild, this.backgroundColor = Colors.transparent, this.fcm_token});
 
   @override
   _AuthTemplateState createState() => _AuthTemplateState();
@@ -90,7 +91,7 @@ class _AuthTemplateState extends State<AuthTemplate> {
                   child: MaterialButton(
                     onPressed: (){
                       authSettings.apiCallback!({"status" : "loading"});
-                      authSettings.requestFromEndpoint();
+                      authSettings.requestFromEndpoint(fcm_token: widget.fcm_token);
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),

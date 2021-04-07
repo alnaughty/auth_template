@@ -65,13 +65,17 @@ class AuthSettings{
     );
   }
 
-  Future<void> requestFromEndpoint() async {
+  Future<void> requestFromEndpoint({String? fcm_token}) async {
     try{
       var url = Uri.parse(this.endpoint);
-      await http.post(url, body: {
+      Map body = {
         "${this.emailApiKey}" : email.text.toString(),
         "${this.passwordApiKey}" : password.text.toString(),
-      }).then((response) {
+      };
+      if(fcm_token != null) {
+        body.addAll({"fcm_token" : fcm_token});
+      }
+      await http.post(url, body: body).then((response) {
         var data = json.decode(response.body);
         this.apiCallback!(data);
       });
