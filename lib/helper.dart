@@ -12,11 +12,11 @@ class AuthSettings{
   final String? passwordApiKey;
   final Color? fieldColor;
   final ForgotPassword? forgotPasswordSettings;
-
+  final String? fcm_token;
   bool hidePassword = true;
 
   final bool allowBack;
-  AuthSettings({this.fieldColor = Colors.blue,required this.endpoint,this.allowBack = false, this.apiCallback, this.emailApiKey = "email",this.passwordApiKey = "password", this.forgotPasswordSettings});
+  AuthSettings({this.fcm_token, this.fieldColor = Colors.blue,required this.endpoint,this.allowBack = false, this.apiCallback, this.emailApiKey = "email",this.passwordApiKey = "password", this.forgotPasswordSettings});
 
 
   Widget emailTextField({String label = "Email"}) {
@@ -65,15 +65,15 @@ class AuthSettings{
     );
   }
 
-  Future<void> requestFromEndpoint({String? fcm_token}) async {
+  Future<void> requestFromEndpoint() async {
     try{
       var url = Uri.parse(this.endpoint);
       Map body = {
         "${this.emailApiKey}" : email.text.toString(),
         "${this.passwordApiKey}" : password.text.toString(),
       };
-      if(fcm_token != null) {
-        body.addAll({"fcm_token" : fcm_token});
+      if(this.fcm_token != null) {
+        body.addAll({"fcm_token" : this.fcm_token});
       }
       await http.post(url, body: body).then((response) {
         var data = json.decode(response.body);
