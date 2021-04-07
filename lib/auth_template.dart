@@ -7,7 +7,7 @@ class AuthTemplate extends StatefulWidget {
   final AuthSettings authSettings;
   final Color? buttonColor, backgroundColor;
   final Widget buttonChild;
-  AuthTemplate({required this.authSettings, this.buttonColor= Colors.red, required this.buttonChild, this.backgroundColor = Colors.transparent, this.fcm_token});
+  AuthTemplate({required this.authSettings, this.buttonColor= Colors.red, required this.buttonChild, this.backgroundColor = Colors.transparent,});
 
   @override
   _AuthTemplateState createState() => _AuthTemplateState();
