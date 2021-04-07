@@ -5,9 +5,9 @@ export 'package:auth_template/pack/main_exporter.dart';
 
 class AuthTemplate extends StatefulWidget {
   final AuthSettings authSettings;
-  final Color? buttonColor;
+  final Color? buttonColor, backgroundColor;
   final Widget buttonChild;
-  AuthTemplate({required this.authSettings, this.buttonColor= Colors.red, required this.buttonChild});
+  AuthTemplate({required this.authSettings, this.buttonColor= Colors.red, required this.buttonChild, this.backgroundColor = Colors.transparent});
 
   @override
   _AuthTemplateState createState() => _AuthTemplateState();
@@ -20,6 +20,9 @@ class _AuthTemplateState extends State<AuthTemplate> {
     return GestureDetector(
       onTap: ()=> FocusScope.of(context).unfocus(),
       child: Material(
+        color: widget.backgroundColor,
+        elevation: 0,
+        shadowColor: widget.backgroundColor,
         child: Align(
           alignment: AlignmentDirectional.center,
           child: Padding(
@@ -86,6 +89,7 @@ class _AuthTemplateState extends State<AuthTemplate> {
                   ),
                   child: MaterialButton(
                     onPressed: (){
+                      authSettings.apiCallback!({"status" : "loading"});
                       authSettings.requestFromEndpoint();
                     },
                     shape: RoundedRectangleBorder(
